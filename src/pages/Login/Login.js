@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 
 const Login = () => {
 
@@ -10,14 +11,27 @@ const Login = () => {
     const [loginError, setLoginError] = useState(null);
     const [resetPwdError, setResetPwdError] = useState(null);
 
+    const { createUser, passwordReset } = useContext(UserContext);
+
     const forgetPwdHandler = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
+
+        setResetPwdError(null);
+        if (!email) {
+            return;
+        }
+        passwordReset(email)
+            .then(res => console.log(res))
+            .catch(err => {
+                const errorCode = err.code;
+                errorCode === 'auth/user-not-found' && setResetPwdError('User Not Found');
+            });
     }
 
     return (
-        <div className="h-screen">
+        <div className="">
             <div className="container px-6 py-12 h-full">
                 <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
                     <div className="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
@@ -87,9 +101,9 @@ const Login = () => {
                                 </button>
                                 <h3 className='text-center pb-3 text-lg font-semibold'>Forget Password</h3>
                                 <div>
-                                    <input type='email' className='w-full py-2 px-3 rounded border-0 focus:outline-violet-500' placeholder='Enter Your Email' required />
+                                    <input name='email' type='email' className='w-full py-2 px-3 rounded border-0 focus:outline-violet-500' placeholder='Enter Your Email' required />
                                 </div>
-                                {resetPwdError !== null && <p className='text-red-500 mt-3 text-center text-base'><small>error</small></p>}
+                                {resetPwdError !== null && <p className='text-red-500 mt-3 text-center text-base'><small>{resetPwdError}</small></p>}
                                 <div className='mt-4'>
                                     <button type='submit' className='w-full py-2 px-3 rounded bg-blue-600 text-slate-50'>Submit</button>
                                 </div>
