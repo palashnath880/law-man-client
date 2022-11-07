@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from '../../layout/Main/Main';
 import Home from '../../pages/Home/Home/Home';
+import Login from '../../pages/Login/Login';
 
 const Routes = () => {
 
@@ -13,6 +14,10 @@ const Routes = () => {
                 {
                     path: '/',
                     element: <Home />,
+                },
+                {
+                    path: '/login',
+                    element: <Login />
                 }
             ]
         }
