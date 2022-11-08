@@ -9,6 +9,8 @@ const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const serverRootURL = 'http://localhost:5000/';
+
     const auth = getAuth(app);
     const googleProvider = new GoogleAuthProvider();
 
@@ -55,7 +57,7 @@ const UserContextProvider = ({ children }) => {
 
     }, [])
 
-    const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser };
+    const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL };
 
     return (
         <UserContext.Provider value={userInfo}>
