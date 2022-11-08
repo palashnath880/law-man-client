@@ -37,7 +37,7 @@ const Footer = () => {
             <div className='py-10 border-t border-slate-500'>
                 <p className='text-center text-slate-50'>Copyright 2020 - {year} | All Rights Reserved </p>
                 <p className='text-center text-slate-400 pt-3'>Develop By
-                    <a target='_blank' href='https://github.com/palashnath880' className='hover:underline ml-1 hover:text-slate-50 duration-300'>Palash</a>
+                    <a target='_blank' rel="noreferrer" href='https://github.com/palashnath880' className='hover:underline ml-1 hover:text-slate-50 duration-300'>Palash</a>
                 </p>
             </div>
         </footer>

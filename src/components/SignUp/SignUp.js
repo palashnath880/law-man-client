@@ -30,7 +30,6 @@ const SignUp = ({ loginFormToggle }) => {
         setLoading(true);
         createUser(email, password)
             .then(res => {
-                const currentUser = res.user;
                 updateUserProfile(name)
                     .catch(err => console.error(err));
                 toast.success('User Create Successfully.');

@@ -77,7 +77,7 @@ const Login = () => {
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                             className="w-full"
-                            alt="Phone image"
+                            alt="Phone thumbnail"
                         />
                     </div>
                     <div className="w-11/12 md:w-6/12 lg:w-5/12 xl:w-4/12 lg:ml-20">

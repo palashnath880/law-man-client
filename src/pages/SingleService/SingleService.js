@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
@@ -12,6 +12,8 @@ const SingleService = () => {
     const [reviews, setReviews] = useState(null);
 
     const [rating, setRating] = useState(0);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     // reviews fetcher
     const reviewFetcher = () => {
@@ -77,7 +79,7 @@ const SingleService = () => {
             .then(data => {
                 if (data?.status === 'good') {
                     toast.success(data?.message);
-                    const remainingReview = reviews.map(rev => rev._id !== reviewID);
+                    const remainingReview = reviews.filter(rev => rev._id !== reviewID);
                     setReviews(remainingReview);
                 } else {
                     toast.error(data?.message);
@@ -86,7 +88,13 @@ const SingleService = () => {
             .catch(err => console.error(err));
     }
 
-    useEffect(() => reviewFetcher(), []);
+    const navigateToLogin = () => {
+        navigate('/login', { state: { from: location } });
+    }
+
+    useEffect(() => {
+        reviewFetcher();
+    }, []);
 
     return (
         <div className='container mx-auto px-5 py-10'>
@@ -110,7 +118,7 @@ const SingleService = () => {
                                         reviews.map(review =>
                                             <div key={review?._id} className='flex shadow-lg border border-gray-200 mb-5 rounded-md'>
                                                 <div className='w-20 flex justify-center items-center'>
-                                                    <img className='w-12 h-12 rounded-full' src={review?.authorPhotoUrl} alt='Review Author Image' />
+                                                    <img className='w-12 h-12 rounded-full' src={review?.authorPhotoUrl} alt='Review Author Profile' />
                                                 </div>
                                                 <div className='flex-1 px-3 py-2'>
                                                     <h3 className='text-lg'>{review?.ratingText}</h3>
@@ -131,16 +139,24 @@ const SingleService = () => {
                                         <p className='py-2 text-center rounded-md bg-red-100 text-red-500'>No Reviews</p>
                                 }
                             </div>
-                            <div className='mt-10 pl-5'>
-                                <form onSubmit={reviewAddHandler} className='shadow-lg p-4'>
-                                    <h3 className='border-b inline-block text-xl mb-5 pb-2 border-gray-600'>Give Review</h3>
-                                    <input className='px-3 py-2 w-full rounded-md focus:outline-violet-500' type='text' placeholder='Enter Your Review' name='rating_text' required />
-                                    <div className='mt-4'>
-                                        <Rating onClick={(e) => setRating(e)} initialValue={rating} SVGclassName='inline-block' iconsCount={5} allowFraction={true} size='30' className='m-0' />
+
+                            {
+                                user !== null ?
+                                    <div className='mt-10 pl-5'>
+                                        <form onSubmit={reviewAddHandler} className='shadow-lg p-4'>
+                                            <h3 className='border-b inline-block text-xl mb-5 pb-2 border-gray-600'>Give Review</h3>
+                                            <input className='px-3 py-2 w-full rounded-md focus:outline-violet-500' type='text' placeholder='Enter Your Review' name='rating_text' required />
+                                            <div className='mt-4'>
+                                                <Rating onClick={(e) => setRating(e)} initialValue={rating} SVGclassName='inline-block' iconsCount={5} allowFraction={true} size='30' className='m-0' />
+                                            </div>
+                                            <button type='submit' className='bg-green-500 text-slate-50 px-5 py-2 mt-5'>Submit</button>
+                                        </form>
                                     </div>
-                                    <button type='submit' className='bg-green-500 text-slate-50 px-5 py-2 mt-5'>Submit</button>
-                                </form>
-                            </div>
+                                    :
+                                    <p className='mt-5 text-center py-5'>You must <button onClick={navigateToLogin} className='text-blue-600 underline hover:no-underline'>login</button> to add a review.</p>
+                            }
+
+
                         </div>
                     </div>
                 </div>

@@ -55,7 +55,7 @@ const UserContextProvider = ({ children }) => {
 
         return () => unsubscribe();
 
-    }, [])
+    }, [auth])
 
     const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL };
 

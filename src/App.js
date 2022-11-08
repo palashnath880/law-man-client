@@ -7,7 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const App = () => {
 
-  const { loading, user } = useContext(UserContext);
+  const { loading } = useContext(UserContext);
 
   if (loading) {
     return (

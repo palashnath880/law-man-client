@@ -10,11 +10,11 @@ const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
     const shortDescription = description.length > 100 ? sliceDescription : description;
 
     return (
-        <div className='rounded-lg shadow-lg border border-gray-200 overflow-hidden'>
+        <div className='rounded-lg flex flex-col shadow-lg border border-gray-200 overflow-hidden'>
             <div className='overflow-hidden'>
                 <img className='transition-all duration-400 cursor-pointer ease-in-out hover:scale-110 max-w-full max-h-full' src={thumbnail_url} alt='Service Card Thumbnail' />
             </div>
-            <div className='px-4 py-5 '>
+            <div className='px-4 pt-5 flex-1'>
                 <Link to={`/services/${_id}`}>
                     <h2 className='text-xl'>{title}</h2>
                 </Link>
@@ -31,6 +31,8 @@ const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
                         <span className='text-xl font-semibold'>&#36;</span>{price}
                     </p>
                 </div>
+            </div>
+            <div className='px-4 pb-5'>
                 {
                     serviceDelete ?
                         <button onClick={() => serviceDeleteHandler(service?._id)} className='py-2 flex justify-center items-center gap-2 w-full font-semibold duration-300 hover:bg-gray-700 hover:text-slate-50 mt-4 border border-gray-400 uppercase'>
@@ -40,7 +42,6 @@ const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
                         :
                         <button className='py-2 text-center w-full font-semibold duration-300 hover:bg-gray-700 hover:text-slate-50 mt-4 border border-gray-400 uppercase'>Get Service</button>
                 }
-
             </div>
         </div>
     );
