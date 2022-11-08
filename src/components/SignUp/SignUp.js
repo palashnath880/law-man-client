@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
 const SignUp = ({ loginFormToggle }) => {
 
     const [signUpError, setSignUpError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const { createUser, updateUserProfile } = useContext(UserContext);
+
+    const signUpFormHandler = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        setSignUpError(null);
+        if (password.length < 6) {
+            setSignUpError('Please enter password more than 6 characters.');
+            return;
+        }
+        setLoading(true);
+        createUser(email, password)
+            .then(res => {
+                const currentUser = res.user;
+                updateUserProfile(name)
+                    .catch(err => console.error(err));
+            })
+            .catch(err => {
+                setLoading(false);
+                const errorCode = err.code;
+                errorCode === 'auth/email-already-in-use' && setSignUpError('Already have an account at this email');
+            });
+
+    }
+
     return (
-        <form className='bg-base-100 shadow-lg px-5 py-8 rounded-md border border-slate-200'>
+        <form onSubmit={signUpFormHandler} className='bg-base-100 shadow-lg px-5 py-8 rounded-md border border-slate-200'>
             <h1 className='text-2xl pb-6 pl-2 font-semibold'>Sign Up!</h1>
             <div className="mb-6">
                 <input
@@ -36,9 +67,11 @@ const SignUp = ({ loginFormToggle }) => {
             {signUpError !== null && <p className='text-center text-red-500 text-sm py-1 mb-4 bg-red-100 rounded'>{signUpError}</p>}
 
             <button
+                disabled={loading ? true : false}
                 type="submit"
-                className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="flex justify-center items-center gap-2 px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
             >
+                <span className={`block ${loading ? 'visible' : 'invisible'} w-5 h-5 animate-spin rounded-full border-4 border-slate-300 border-t-slate-50`}></span>
                 Signup
             </button>
 
@@ -48,7 +81,7 @@ const SignUp = ({ loginFormToggle }) => {
 
             <SocialLogin />
             <div className='mt-3'>
-                <p className='text-center'><small>All ready have an account, Please <button type='button' onClick={() => loginFormToggle(true)} className='text-blue-600 hover:underline ml-1'>Login</button></small></p>
+                <p className='text-center'><small>Already have an account, Please <button type='button' onClick={() => loginFormToggle(true)} className='text-blue-600 hover:underline ml-1'>Login</button></small></p>
             </div>
         </form>
     );

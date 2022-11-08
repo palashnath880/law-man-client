@@ -3,6 +3,7 @@ import SignUp from '../../components/SignUp/SignUp';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import { toast } from 'react-toastify';
 
 const Login = () => {
 
@@ -10,9 +11,11 @@ const Login = () => {
     const [forgetPwdModal, setForgetPwdModal] = useState(false);
     const [loginError, setLoginError] = useState(null);
     const [resetPwdError, setResetPwdError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const { createUser, passwordReset } = useContext(UserContext);
+    const { loginUser, passwordReset } = useContext(UserContext);
 
+    // password reset handler 
     const forgetPwdHandler = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -23,11 +26,40 @@ const Login = () => {
             return;
         }
         passwordReset(email)
-            .then(res => console.log(res))
+            .then(() => {
+                toast.success('Password reset link send successfully.');
+                setForgetPwdModal(false);
+            })
             .catch(err => {
                 const errorCode = err.code;
                 errorCode === 'auth/user-not-found' && setResetPwdError('User Not Found');
             });
+    }
+
+    // login form handler 
+    const loginFormHandler = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        setLoginError(null);
+        if (password.length < 6) {
+            setLoginError('Please enter password more than 6 characters.');
+            return;
+        }
+        setLoading(true);
+        loginUser(email, password)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                const errorCode = err.code;
+                errorCode === 'auth/user-not-found' && setLoginError('No user have at this email.');
+                errorCode === 'auth/wrong-password' && setLoginError('Incorrect Password.');
+                setLoading(false);
+            });
+
+
     }
 
     return (
@@ -45,14 +77,14 @@ const Login = () => {
                         {
                             isLoginForm ?
 
-                                <form className='bg-base-100 shadow-lg px-5 py-8 rounded-md border border-slate-200'>
+                                <form onSubmit={loginFormHandler} className='bg-base-100 shadow-lg px-5 py-8 rounded-md border border-slate-200'>
                                     <h1 className='text-2xl pb-6 pl-2 font-semibold'>Login!</h1>
                                     <div className="mb-6">
-                                        <input type="email" className="form-control block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Email address" required />
+                                        <input name='email' type="email" className="form-control block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Email address" required />
                                     </div>
 
                                     <div className="mb-6">
-                                        <input type="password" className="form-control block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Password" required />
+                                        <input name='password' type="password" className="form-control block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Password" required />
                                     </div>
 
                                     <div className="flex justify-between items-center mb-6">
@@ -65,7 +97,12 @@ const Login = () => {
 
                                     {loginError !== null && <p className='text-center text-red-500 text-sm py-1 mb-4 bg-red-100 rounded'>{loginError}</p>}
 
-                                    <button type="submit" className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full">
+                                    <button
+                                        disabled={loading ? true : false}
+                                        type="submit"
+                                        className="flex justify-center items-center gap-2 px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                                    >
+                                        <span className={`block ${loading ? 'visible' : 'invisible'} w-5 h-5 animate-spin rounded-full border-4 border-slate-300 border-t-slate-50`}></span>
                                         Login
                                     </button>
 
@@ -77,7 +114,7 @@ const Login = () => {
                                     <div className='mt-3'>
                                         <p className='text-center'>
                                             <small>If you are new member, Please
-                                                <button onClick={() => setIsLoginForm(false)} className='text-blue-600 hover:underline ml-1'>Sign Up</button>
+                                                <button type='button' onClick={() => setIsLoginForm(false)} className='text-blue-600 hover:underline ml-1'>Sign Up</button>
                                             </small>
                                         </p>
                                     </div>
