@@ -1,12 +1,22 @@
 import React, { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import { toast } from 'react-toastify';
 
 const SocialLogin = () => {
     const { signInWithGoogle } = useContext(UserContext);
 
+    const location = useLocation();
+    const pathName = location?.state?.from?.pathname || '/';
+
+    const navigate = useNavigate();
+
     const googleSignInHandler = () => {
         signInWithGoogle()
-            .then(res => console.log(res))
+            .then(() => {
+                toast.success('Login Successfully.');
+                navigate(pathName, { replace: true });
+            })
             .catch(err => console.error(err));
     }
 

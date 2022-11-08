@@ -4,6 +4,7 @@ import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -14,6 +15,11 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
 
     const { loginUser, passwordReset } = useContext(UserContext);
+
+    const location = useLocation();
+    const pathName = location?.state?.from?.pathname || '/';
+
+    const navigate = useNavigate();
 
     // password reset handler 
     const forgetPwdHandler = (event) => {
@@ -49,8 +55,9 @@ const Login = () => {
         }
         setLoading(true);
         loginUser(email, password)
-            .then(res => {
-                console.log(res);
+            .then(() => {
+                toast.success('Login Successfully');
+                navigate(pathName, { replace: true });
             })
             .catch(err => {
                 const errorCode = err.code;

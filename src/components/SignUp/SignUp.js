@@ -1,12 +1,19 @@
 import React, { useContext, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { toast } from 'react-toastify';
 
 const SignUp = ({ loginFormToggle }) => {
 
     const [signUpError, setSignUpError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { createUser, updateUserProfile } = useContext(UserContext);
+
+    const location = useLocation();
+    const pathName = location?.state?.from?.pathname || '/';
+
+    const navigate = useNavigate();
 
     const signUpFormHandler = (event) => {
         event.preventDefault();
@@ -26,6 +33,8 @@ const SignUp = ({ loginFormToggle }) => {
                 const currentUser = res.user;
                 updateUserProfile(name)
                     .catch(err => console.error(err));
+                toast.success('User Create Successfully.');
+                navigate(pathName, { replace: true });
             })
             .catch(err => {
                 setLoading(false);
