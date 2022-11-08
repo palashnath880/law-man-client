@@ -9,7 +9,7 @@ const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const serverRootURL = 'http://localhost:5000/';
+    const serverRootURL = 'https://law-man-server-palashnath880.vercel.app/';
 
     const auth = getAuth(app);
     const googleProvider = new GoogleAuthProvider();
