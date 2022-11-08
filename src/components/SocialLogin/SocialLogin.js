@@ -14,8 +14,8 @@ const SocialLogin = () => {
     const googleSignInHandler = () => {
         signInWithGoogle()
             .then(() => {
-                toast.success('Login Successfully.');
                 navigate(pathName, { replace: true });
+                toast.success('Login Successfully.');
             })
             .catch(err => console.error(err));
     }

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Rating } from 'react-simple-star-rating';
+import serviceImg from '../../images/service-img.jpg';
 
 const ServicesItem = () => {
     return (
-        <div className='rounded-lg shadow-lg border border-gray-200 px-3 py-5'>
-            <div>
-                <img />
+        <div className='rounded-lg shadow-lg border border-gray-200 overflow-hidden'>
+            <div className='overflow-hidden lg:h-52'>
+                <img className='transition-all duration-400 cursor-pointer ease-in-out hover:scale-110 max-w-full max-h-full' src={serviceImg} alt='Service Card Thumbnail' />
             </div>
-            <div className='px-2'>
+            <div className='px-4 py-5 '>
                 <h2 className='text-xl'>Business Law</h2>
                 <p className='text-slate-500'>lorem ipsum is a most popular placeholder text. 2 billions people use lorem ipsum. Lorem ipsum helpful tools for web developer.</p>
                 <p className='mt-2 flex items-center'>
