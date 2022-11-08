@@ -3,9 +3,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import Main from '../../layout/Main/Main';
 import AddService from '../../pages/AddService/AddService';
+import Blogs from '../../pages/Home/Blogs/Blogs';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import MyServices from '../../pages/MyServices/MyServices';
+import Services from '../../pages/Services/Services';
 import SingleService from '../../pages/SingleService/SingleService';
 import AuthRoutes from '../AuthRoutes/AuthRoutes';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -28,6 +30,10 @@ const Routes = () => {
                     element: <AuthRoutes><Login /></AuthRoutes>
                 },
                 {
+                    path: '/services',
+                    element: <Services />
+                },
+                {
                     path: '/services/:serviceID',
                     element: <SingleService />,
                     loader: ({ params }) => fetch(`${serverRootURL}services/${params.serviceID}`),
@@ -39,6 +45,10 @@ const Routes = () => {
                 {
                     path: '/add-services',
                     element: <ProtectedRoute><AddService /></ProtectedRoute>
+                },
+                {
+                    path: '/blogs',
+                    element: <Blogs />
                 }
             ]
         }

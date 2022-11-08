@@ -4,6 +4,7 @@ import Routes from './router/Routes/Routes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import "react-awesome-lightbox/build/style.css";
 
 const App = () => {
 
