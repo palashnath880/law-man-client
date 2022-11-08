@@ -3,9 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import Main from '../../layout/Main/Main';
 import AddService from '../../pages/AddService/AddService';
-import Blogs from '../../pages/Home/Blogs/Blogs';
+import Blogs from '../../pages/Blogs/Blogs';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
+import MyReviews from '../../pages/MyReviews/MyReviews';
 import MyServices from '../../pages/MyServices/MyServices';
 import Services from '../../pages/Services/Services';
 import SingleService from '../../pages/SingleService/SingleService';
@@ -45,6 +46,10 @@ const Routes = () => {
                 {
                     path: '/add-services',
                     element: <ProtectedRoute><AddService /></ProtectedRoute>
+                },
+                {
+                    path: '/my-reviews',
+                    element: <ProtectedRoute><MyReviews /></ProtectedRoute>
                 },
                 {
                     path: '/blogs',

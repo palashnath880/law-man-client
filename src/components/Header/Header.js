@@ -41,9 +41,14 @@ const Header = () => {
                                 <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/blogs'>Blogs</NavLink>
                             </li>
                             {user !== null &&
-                                <li>
-                                    <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/my-services'>My Services</NavLink>
-                                </li>
+                                <>
+                                    <li>
+                                        <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/my-services'>My Services</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/my-reviews'>My Reviews</NavLink>
+                                    </li>
+                                </>
                             }
                             {user === null ?
                                 <li>
