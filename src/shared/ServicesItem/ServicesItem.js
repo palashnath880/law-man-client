@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
@@ -6,16 +6,17 @@ import LightBox from 'react-awesome-lightbox';
 
 const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
     const { _id, title, thumbnail_url, description, price } = service;
     const sliceDescription = description.slice(0, 100);
     const shortDescription = description.length > 100 ? sliceDescription : description;
 
     return (
         <div className='rounded-lg flex flex-col shadow-lg border border-gray-200 overflow-hidden'>
+            {isPopupOpen && <LightBox onClose={() => setIsPopupOpen(false)} image={thumbnail_url}></LightBox>}
             <div className='overflow-hidden'>
-                {/* <LightBox onClose image={thumbnail_url}></LightBox> */}
-                {/* <img style={{ objectFit: 'cover' }} className='transition-all duration-400 cursor-pointer ease-in-out hover:scale-110 max-w-full max-h-full' src={thumbnail_url} alt='Service Card Thumbnail' /> */}
-
+                <img onClick={() => setIsPopupOpen(true)} style={{ objectFit: 'cover' }} className='transition-all duration-400 cursor-pointer ease-in-out hover:scale-110 max-w-full max-h-full' src={thumbnail_url} alt='Service Card Thumbnail' />
             </div>
             <div className='px-4 pt-5 flex-1'>
                 <h2 className='text-xl'>{title}</h2>

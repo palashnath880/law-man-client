@@ -12,9 +12,14 @@ const App = () => {
 
   if (loading) {
     return (
-      <>
-        <h1>Loading</h1>
-      </>
+      <div className='h-screen w-full top-0 right-0 fixed'>
+        <div className='h-full w-full flex justify-center items-center'>
+          <div className='text-center'>
+            <span className='w-12 h-12 mx-auto border-4 border-gray-700 border-t-transparent mb-2 animate-spin block rounded-full'></span>
+            <p>Loading....</p>
+          </div>
+        </div>
+      </div>
     );
   }
 

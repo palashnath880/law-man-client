@@ -7,15 +7,27 @@ const ServicesArea = () => {
 
     const { serverRootURL } = useContext(UserContext);
     const [services, setServices] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(`${serverRootURL}services?limit=3`)
             .then(res => res.json())
             .then(data => {
                 setServices(data);
+                setLoading(false);
             })
             .catch(err => console.error(err));
     }, [serverRootURL]);
+
+    if (loading) {
+        return (
+            <div className='h-36 w-full flex justify-center items-center'>
+                <div className='text-center'>
+                    <span className='w-10 h-10 mx-auto border-4 border-gray-700 border-t-transparent animate-spin block rounded-full'></span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className=''>

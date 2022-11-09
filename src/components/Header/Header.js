@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import logo from '../../images/logo.png';
 
 const Header = () => {
 
@@ -23,33 +24,33 @@ const Header = () => {
         <header className='border-b shadow-md bg-zinc-50'>
             <div className='container mx-auto'>
                 <nav className='py-2 flex items-center'>
-                    <Link className='flex-1'>
-                        <h1>Logo</h1>
+                    <Link className='flex-1' to='/'>
+                        <img className='w-16 h-auto' src={logo} alt='logo' />
                     </Link>
                     <div className=''>
                         <ul className='flex gap-2'>
                             <li>
-                                <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/'>Home</NavLink>
+                                <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/'>Home</NavLink>
                             </li>
                             <li>
-                                <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/services'>Services</NavLink>
+                                <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/services'>Services</NavLink>
                             </li>
                             <li>
-                                <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/blogs'>Blogs</NavLink>
+                                <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/blogs'>Blogs</NavLink>
                             </li>
                             {user !== null &&
                                 <>
                                     <li>
-                                        <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/my-services'>My Services</NavLink>
+                                        <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/my-services'>My Services</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/my-reviews'>My Reviews</NavLink>
+                                        <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/my-reviews'>My Reviews</NavLink>
                                     </li>
                                 </>
                             }
                             {user === null ?
                                 <li>
-                                    <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/login'>Login</NavLink>
+                                    <NavLink className='block py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/login'>Login</NavLink>
                                 </li> :
                                 <>
                                     <div className='relative ml-4' ref={ref}>
