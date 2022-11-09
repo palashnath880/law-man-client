@@ -15,7 +15,7 @@ const Login = () => {
     const [resetPwdError, setResetPwdError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const { loginUser, passwordReset } = useContext(UserContext);
+    const { loginUser, passwordReset, createJWT } = useContext(UserContext);
 
     const location = useLocation();
     const pathName = location?.state?.from?.pathname || '/';
@@ -56,8 +56,9 @@ const Login = () => {
         }
         setLoading(true);
         loginUser(email, password)
-            .then(() => {
+            .then((result) => {
                 toast.success('Login Successfully');
+                createJWT(result?.user?.uid);
                 navigate(pathName, { replace: true });
             })
             .catch(err => {

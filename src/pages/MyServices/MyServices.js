@@ -4,6 +4,7 @@ import { UserContext } from '../../contexts/UserContextProvider/UserContextProvi
 import ServicesItem from '../../shared/ServicesItem/ServicesItem';
 import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const MyServices = () => {
 
@@ -72,6 +73,8 @@ const MyServices = () => {
 
     return (
         <div className='container mx-auto py-10'>
+            {/* react helmet */}
+            <Helmet><title>My Services</title></Helmet>
             <div>
                 <h1 className='text-3xl text-center border-b border-gray-200 pb-5'>My All Services</h1>
                 <div className='mt-8'>

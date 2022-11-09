@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 const Blogs = () => {
     return (
         <>
-            <Helmet><title>Blogs-law-Man</title></Helmet>
+            <Helmet><title>Blogs</title></Helmet>
             <div className='container py-10 mx-auto px-5'>
                 <div className='w-full lg:w-9/12 mx-auto'>
                     <div className='border border-gray-200 rounded-md shadow-lg px-3 py-4 mb-5'>

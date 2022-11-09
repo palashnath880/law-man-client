@@ -4,7 +4,7 @@ import { UserContext } from '../../contexts/UserContextProvider/UserContextProvi
 import { toast } from 'react-toastify';
 
 const SocialLogin = () => {
-    const { signInWithGoogle } = useContext(UserContext);
+    const { signInWithGoogle, createJWT } = useContext(UserContext);
 
     const location = useLocation();
     const pathName = location?.state?.from?.pathname || '/';
@@ -13,8 +13,9 @@ const SocialLogin = () => {
 
     const googleSignInHandler = () => {
         signInWithGoogle()
-            .then(() => {
+            .then((res) => {
                 navigate(pathName, { replace: true });
+                createJWT(res?.user?.uid);
                 toast.success('Login Successfully.');
             })
             .catch(err => console.error(err));

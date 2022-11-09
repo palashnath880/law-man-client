@@ -47,6 +47,19 @@ const UserContextProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    // create jwt token
+    const createJWT = (userID) => {
+        const url = `${serverRootURL}createjwt`;
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userID }),
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error(err));
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
@@ -57,7 +70,7 @@ const UserContextProvider = ({ children }) => {
 
     }, [auth])
 
-    const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL };
+    const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL, createJWT };
 
     return (
         <UserContext.Provider value={userInfo}>

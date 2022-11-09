@@ -117,7 +117,7 @@ const SingleService = () => {
                             <h1 className='text-2xl border-b border-gray-300 pb-3'>Reviews</h1>
                             <div className='mt-5'>
                                 {
-                                    reviews !== null && reviews.length > 0 ?
+                                    reviews !== null && (reviews.length > 0 ?
                                         reviews.map(review =>
                                             <div key={review?._id} className='flex shadow-lg border border-gray-200 mb-5 rounded-md'>
                                                 <div className='w-20 flex justify-center items-center'>
@@ -140,6 +140,7 @@ const SingleService = () => {
                                             </div>
                                         ) :
                                         <p className='py-2 text-center rounded-md bg-red-100 text-red-500'>No Reviews</p>
+                                    )
                                 }
                             </div>
 
