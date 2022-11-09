@@ -32,9 +32,6 @@ const Header = () => {
                                 <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/'>Home</NavLink>
                             </li>
                             <li>
-                                <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/about'>About</NavLink>
-                            </li>
-                            <li>
                                 <NavLink className='block py-2 px-3 transition-all hover:border-b border-violet-500' to='/services'>Services</NavLink>
                             </li>
                             <li>
@@ -59,9 +56,6 @@ const Header = () => {
                                         <label onClick={() => setProfileMenu(!profileMenu)} className='w-10 h-10 block rounded-full overflow-hidden focus:border-violet-500 cursor-pointer'><img src={user?.photoURL} alt='Profile Thumbnail' /></label>
                                         <div className={`absolute z-50 top-full duration-200 right-0 bg-zinc-100 px-2 py-2 w-48 rounded-xl ${profileMenu ? 'visible opacity-100' : 'invisible opacity-0'}`}>
                                             <ul>
-                                                <li>
-                                                    <NavLink className='block py-2 px-2 duration-300 b hover:bg-slate-50 rounded-lg' to='/profile'>Profile</NavLink>
-                                                </li>
                                                 <li>
                                                     <button onClick={logoutHandler} className='w-full text-start py-2 px-2 duration-300 b hover:bg-slate-50 rounded-lg' >Logout</button>
                                                 </li>

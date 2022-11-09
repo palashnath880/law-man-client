@@ -81,13 +81,14 @@ const MyServices = () => {
                     <span className='block w-8 h-8 rounded-full border-4 border-gray-500 border-t-gray-200 animate-spin'></span>
                 </div>}
                 {
-                    Array.isArray(myServices) && myServices.length > 0 ?
+                    Array.isArray(myServices) && (myServices.length > 0 ?
                         <div className='grid grid-cols-3 gap-2 mt-8'>
                             {myServices.map(service => <ServicesItem key={service?._id} service={service} serviceDelete={true} serviceDeleteHandler={deleteConfirm} />)}
                         </div>
                         : <>
                             <p className='text-lg mt-8 bg-red-100 rounded-md py-2 text-center text-red-600'>No Services Found</p>
                         </>
+                    )
                 }
 
 

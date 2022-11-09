@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import { toast } from 'react-toastify';
 import MyReviewsItem from '../../components/MyReviewsItem/MyReviewsItem';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
@@ -41,6 +42,8 @@ const MyReviews = () => {
 
     return (
         <div className='container mx-auto py-10 px-5 '>
+            {/* react helmet */}
+            <Helmet><title>My Reviews</title></Helmet>
             <div className='w-11/12 lg:w-9/12 lg:mx-auto rounded-lg border border-gray-100 shadow-lg px-4 py-5'>
                 <h1 className='text-3xl text-center border-b border-gray-200 pb-5'>My All Reviews</h1>
                 {
@@ -52,7 +55,7 @@ const MyReviews = () => {
                         <div className='mt-5'>
                             {reviews !== null && reviews.length > 0 ? reviews.map(review => <MyReviewsItem key={review?._id} review={review} reviewDeleteHandler={reviewDeleteHandler} />)
                                 :
-                                <p className='text-lg mt-8 bg-red-100 rounded-md py-2 text-center text-red-600'>No Reviews Found</p>
+                                <p className='text-lg mt-8 bg-red-100 rounded-md py-2 text-center text-red-600'>No reviews were added</p>
                             }
                         </div>
                 }

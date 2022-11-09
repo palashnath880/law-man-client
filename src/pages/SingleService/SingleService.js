@@ -1,5 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import { toast } from 'react-toastify';
@@ -98,8 +99,10 @@ const SingleService = () => {
 
     return (
         <div className='container mx-auto px-5 py-10'>
+            {/* React helmet */}
+            <Helmet><title>{title}</title></Helmet>
             <div className='flex gap-2'>
-                <div className='w-9/12'>
+                <div className='w-full xl:w-10/12 lg:w-9/12 mx-auto'>
                     <div className='rounded-md bg-slate-50 p-4'>
                         <div>
                             <h1 className='text-2xl'>{title}</h1>
@@ -160,7 +163,6 @@ const SingleService = () => {
                         </div>
                     </div>
                 </div>
-                <div className='w-3 /12'></div>
             </div>
         </div>
     );
