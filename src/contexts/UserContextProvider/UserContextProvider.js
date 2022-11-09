@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signInWithPopup, onAuthStateChanged, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import app from '../../firebase/__firebase.config';
+import { useCookies } from 'react-cookie';
 
 export const UserContext = createContext();
 
@@ -8,8 +9,13 @@ const UserContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cookies, setCookies] = useCookies(['lawmanjwt']);
 
-    const serverRootURL = 'https://law-man-server-palashnath880.vercel.app/';
+    // https://law-man-server-palashnath880.vercel.app/
+    //https://law-man-server.vercel.app/
+    // http://localhost:5000/
+
+    const serverRootURL = 'https://law-man-server.vercel.app/';
 
     const auth = getAuth(app);
     const googleProvider = new GoogleAuthProvider();
@@ -56,12 +62,20 @@ const UserContextProvider = ({ children }) => {
             body: JSON.stringify({ userID }),
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data?.token) {
+                    setCookies('lawmanjwt', data?.token);
+                }
+            })
             .catch(err => console.error(err));
     }
 
     useEffect(() => {
+
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            if (currentUser?.uid) {
+                createJWT(currentUser?.uid);
+            }
             setUser(currentUser);
             setLoading(false);
         });
@@ -70,7 +84,9 @@ const UserContextProvider = ({ children }) => {
 
     }, [auth])
 
-    const userInfo = { loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL, createJWT };
+    const userInfo = {
+        loading, user, createUser, loginUser, signInWithGoogle, passwordReset, updateProfile: updateUserProfile, logoutUser, serverRootURL, createJWT, cookies
+    };
 
     return (
         <UserContext.Provider value={userInfo}>

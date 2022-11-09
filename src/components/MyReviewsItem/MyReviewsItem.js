@@ -7,13 +7,16 @@ import { toast } from 'react-toastify';
 
 const MyReviewsItem = ({ review, reviewDeleteHandler }) => {
 
-    const { serverRootURL } = useContext(UserContext);
+    const { serverRootURL, cookies } = useContext(UserContext);
 
     const { _id, rating, ratingText, serviceID } = review;
     const [service, setService] = useState(null);
 
     const [reviewEdit, setReviewEdit] = useState(null);
     const [editRating, setEditRating] = useState(review?.rating);
+
+
+    const JWTToken = cookies['lawmanjwt'];
 
     // edit review
     const editReviewHandler = (event) => {
@@ -32,7 +35,7 @@ const MyReviewsItem = ({ review, reviewDeleteHandler }) => {
         const url = `${serverRootURL}my-reviews/edit/${_id}`;
         fetch(url, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'lawman-jwt': JWTToken },
             body: JSON.stringify({ ratingText: rating_text, rating: editRating }),
         })
             .then(res => res.json())

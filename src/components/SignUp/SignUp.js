@@ -9,7 +9,7 @@ const SignUp = ({ loginFormToggle }) => {
 
     const [signUpError, setSignUpError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { createUser, updateUserProfile } = useContext(UserContext);
+    const { createUser, updateUserProfile, createJWT } = useContext(UserContext);
 
     const location = useLocation();
     const pathName = location?.state?.from?.pathname || '/';
@@ -34,6 +34,7 @@ const SignUp = ({ loginFormToggle }) => {
                 updateUserProfile(name)
                     .catch(err => console.error(err));
                 toast.success('User Create Successfully.');
+                createJWT(res?.user?.uid);
                 navigate(pathName, { replace: true });
             })
             .catch(err => {

@@ -9,12 +9,17 @@ const MyReviews = () => {
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState(null);
 
-    const { user, serverRootURL } = useContext(UserContext);
+    const { user, serverRootURL, cookies } = useContext(UserContext);
+
+    const JWTToken = cookies['lawmanjwt'];
 
     // delete review 
     const reviewDeleteHandler = (reviewID) => {
         const url = `${serverRootURL}reviews/${reviewID}`;
-        fetch(url, { method: 'DELETE' })
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'lawman-jwt': JWTToken }
+        })
             .then(res => res.json())
             .then(data => {
                 if (data?.status === 'good') {
@@ -30,13 +35,17 @@ const MyReviews = () => {
 
     useEffect(() => {
         const url = `${serverRootURL}my-reviews/${user?.uid}`;
-        fetch(url)
+        fetch(url, {
+            headers: { 'lawman-jwt': JWTToken }
+        })
             .then(res => res.json())
             .then(data => {
                 setLoading(false);
                 setReviews(data)
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.log(err)
+            });
 
     }, []);
 

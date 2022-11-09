@@ -9,12 +9,14 @@ import { UserContext } from '../../contexts/UserContextProvider/UserContextProvi
 const SingleService = () => {
     const service = useLoaderData();
     const { _id, title, description, thumbnail_url, price } = service;
-    const { user, serverRootURL } = useContext(UserContext);
+    const { user, serverRootURL, cookies } = useContext(UserContext);
     const [reviews, setReviews] = useState(null);
 
     const [rating, setRating] = useState(0);
     const location = useLocation();
     const navigate = useNavigate();
+
+    const JWTToken = cookies['lawmanjwt'];
 
     // reviews fetcher
     const reviewFetcher = () => {
@@ -52,6 +54,7 @@ const SingleService = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'lawman-jwt': JWTToken
             },
             body: JSON.stringify(insertData),
         }
@@ -75,7 +78,7 @@ const SingleService = () => {
     // delete review 
     const reviewDeleteHandler = (reviewID) => {
         const url = `${serverRootURL}reviews/${reviewID}`;
-        fetch(url, { method: 'DELETE' })
+        fetch(url, { method: 'DELETE', headers: { 'lawman-jwt': JWTToken } })
             .then(res => res.json())
             .then(data => {
                 if (data?.status === 'good') {
