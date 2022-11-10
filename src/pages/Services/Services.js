@@ -32,7 +32,7 @@ const Services = () => {
                     </div>}
                     {
                         Array.isArray(services) && (services.length > 0 ?
-                            <div className='grid grid-cols-3 gap-2 mt-8'>
+                            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8'>
                                 {services.map(service => <ServicesItem key={service?._id} service={service} serviceDelete={false} />)}
                             </div>
                             : <>
