@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import LightBox from 'react-awesome-lightbox';
+import { ReviewContext } from '../../contexts/ReviewContextProvider/ReviewContextProvider';
 
 const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const { reviews } = useContext(ReviewContext);
+
+    const serviceReviews = reviews && reviews.find(rev => rev._id === service._id);
 
     const { _id, title, thumbnail_url, description, price } = service;
     const sliceDescription = description.slice(0, 100);
@@ -26,8 +30,8 @@ const ServicesItem = ({ service, serviceDelete, serviceDeleteHandler }) => {
                 </p>
                 <div className='mt-2 flex justify-between items-center'>
                     <p className='flex items-center'>
-                        <Rating readonly={true} initialValue={4.5} SVGclassName='inline-block' iconsCount={5} allowFraction={true} size='20' className='m-0' />
-                        <span className='mt-1 ml-2'>4.5 <small>( 400 )</small></span>
+                        <Rating readonly={true} initialValue={serviceReviews?.avg} SVGclassName='inline-block' iconsCount={5} allowFraction={true} size='20' className='m-0' />
+                        <span className='mt-1 ml-2'>{serviceReviews?.avg} <small>( {serviceReviews?.count} )</small></span>
                     </p>
                     <p>
                         <span className='text-xl font-semibold'>&#36;</span>{price}
