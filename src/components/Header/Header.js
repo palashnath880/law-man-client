@@ -55,7 +55,7 @@ const Header = () => {
                                     <NavLink className='block text-center py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/login'>Login</NavLink>
                                 </li> :
                                 <>
-                                    <div className='relative ml-4 hidden md:block' ref={profile}>
+                                    <div className='relative ml-4 hidden md:block'>
                                         <div ref={profile}>
                                             <label onClick={() => setProfileMenu(!profileMenu)} className='w-10 h-10 block rounded-full overflow-hidden focus:border-violet-500 cursor-pointer'><img src={user?.photoURL} alt='Profile Thumbnail' /></label>
                                         </div>
