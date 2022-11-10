@@ -34,7 +34,7 @@ const ServicesArea = () => {
             <div className='container mx-auto px-5 py-10'>
                 <div className=''>
                     <h1 className='text-3xl pb-5 text-center border-b border-gray-200'>Services</h1>
-                    <div className='grid grid-cols-3 gap-2 mt-5'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5'>
                         {
                             services !== null && services.length > 0 ? services.map(service => <ServicesItem key={service?._id} service={service} serviceDelete={false} />) : ''
                         }

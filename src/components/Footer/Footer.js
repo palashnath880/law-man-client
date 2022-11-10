@@ -13,13 +13,13 @@ const Footer = () => {
     return (
         <footer className='bg-gray-700'>
             <div className='container mx-auto py-10 px-10'>
-                <div className='grid grid-cols-3 gap-2'>
-                    <div>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                    <div className='flex flex-col items-center md:items-start pb-10 md:p-0'>
                         <img className='w-28' src={footerLogo} alt='Footer Logo' />
-                        <p className=' mt-3 md:pr-[70px] text-slate-300 hover:text-slate-200 duration-300'>If you or your business is facing a legal challenge that calls for sound advice and skilled representation, contact us today to arrange a free consultation with an attorney.</p>
+                        <p className='mt-3 text-center md:text-left lg:pr-[70px] text-slate-300 hover:text-slate-200 duration-300'>If you or your business is facing a legal challenge that calls for sound advice and skilled representation, contact us today to arrange a free consultation with an attorney.</p>
                     </div>
-                    <div>
-                        <h1 className='text-slate-50 text-2xl inline block border-b border-slate-400 pb-3'>Quick Links</h1>
+                    <div className='pb-5 md:p-0'>
+                        <h1 className='text-slate-50 text-2xl inline-block border-b border-slate-400 pb-3'>Quick Links</h1>
                         <ul className='pt-5'>
                             <li><Link className='flex items-center gap-2 text-slate-300 hover:text-slate-200 duration-300 py-1 mb-1' to='/'> <ArrowLongRightIcon className='w-5 h-5' /> Home</Link></li>
                             <li><Link className='flex items-center gap-2 text-slate-300 hover:text-slate-200 duration-300 py-1 mb-1' to='/services'> <ArrowLongRightIcon className='w-5 h-5' />Services</Link></li>
