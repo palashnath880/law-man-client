@@ -101,7 +101,7 @@ const SingleService = () => {
     }, []);
 
     return (
-        <div className='container mx-auto px-5 py-10'>
+        <div className='container mx-auto sm:px-5 py-10'>
             {/* React helmet */}
             <Helmet><title>{title}</title></Helmet>
             <div className='flex gap-2'>
@@ -149,7 +149,7 @@ const SingleService = () => {
 
                             {
                                 user !== null ?
-                                    <div className='mt-10 pl-5'>
+                                    <div className='mt-10 md:pl-5'>
                                         <form onSubmit={reviewAddHandler} className='shadow-lg p-4'>
                                             <h3 className='border-b inline-block text-xl mb-5 pb-2 border-gray-600'>Give Review</h3>
                                             <input className='px-3 py-2 w-full rounded-md focus:outline-violet-500' type='text' placeholder='Enter Your Review' name='rating_text' required />

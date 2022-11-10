@@ -73,12 +73,12 @@ const MyServices = () => {
     }, [serverRootURL, user]);
 
     return (
-        <div className='container mx-auto py-10'>
+        <div className='container mx-auto py-10 px-5'>
             {/* react helmet */}
             <Helmet><title>My Services</title></Helmet>
             <div>
                 <h1 className='text-3xl text-center border-b border-gray-200 pb-5'>My All Services</h1>
-                <div className='mt-8'>
+                <div className='mt-8 text-center md:text-left'>
                     <Link to='/add-services' className='px-6 py-3 rounded bg-gray-700 text-slate-50'>Add New Service</Link>
                 </div>
                 {loading && <div className='h-20 flex justify-center items-center'>
@@ -86,7 +86,7 @@ const MyServices = () => {
                 </div>}
                 {
                     Array.isArray(myServices) && (myServices.length > 0 ?
-                        <div className='grid grid-cols-3 gap-2 mt-8'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8'>
                             {myServices.map(service => <ServicesItem key={service?._id} service={service} serviceDelete={true} serviceDeleteHandler={deleteConfirm} />)}
                         </div>
                         : <>

@@ -53,7 +53,7 @@ const MyReviews = () => {
         <div className='container mx-auto py-10 px-5 '>
             {/* react helmet */}
             <Helmet><title>My Reviews</title></Helmet>
-            <div className='w-11/12 lg:w-9/12 lg:mx-auto rounded-lg border border-gray-100 shadow-lg px-4 py-5'>
+            <div className='lg:w-9/12 lg:mx-auto rounded-lg border border-gray-100 shadow-lg px-4 py-5'>
                 <h1 className='text-3xl text-center border-b border-gray-200 pb-5'>My All Reviews</h1>
                 {
                     loading ?

@@ -65,11 +65,11 @@ const MyReviewsItem = ({ review, reviewDeleteHandler }) => {
 
     return (
         <>
-            <div className='px-3 py-4 rounded-md shadow-lg border mb-3 flex'>
-                <div className='w-32'>
+            <div className='px-3 py-4 rounded-md shadow-lg border mb-3 flex flex-wrap md:flex-nowrap'>
+                <div className='w-full sm:w-32'>
                     <img src={service?.thumbnail_url} alt='Service Thumbnail' />
                 </div>
-                <div className='flex-1 pl-2'>
+                <div className='flex-1 pl-2 pt-4 sm:pt-0'>
                     <Link to={`/services/${serviceID}`}>
                         <h2 className='text-lg font-semibold'>{service !== null && service?.title}</h2>
                     </Link>
@@ -80,17 +80,18 @@ const MyReviewsItem = ({ review, reviewDeleteHandler }) => {
                         <span className='mt-1'>{rating}</span>
                     </p>
                 </div>
-                <div className='px-3 flex items-center gap-2'>
+                <div className='px-3 w-full md:w-auto flex items-center justify-center mt-5 md:mt-0 gap-2'>
                     <button onClick={() => setReviewEdit(review)} title='Edit Review' className='w-10 h-10 bg-green-100 rounded-full flex justify-center items-center text-green-500'><PencilIcon className='w-5 h-5' /></button>
                     <button onClick={() => reviewDeleteHandler(review?._id)} title='Delete Review' className='w-10 h-10 bg-red-100 rounded-full flex justify-center items-center text-red-500'><TrashIcon className='w-5 h-5' /></button>
                 </div>
             </div>
+
             {/* Review Edit Modal */}
             {
                 reviewEdit !== null &&
                 <div className='h-screen w-full fixed top-0 right-0' style={{ background: 'linear-gradient(#00000075, #00000075)' }}>
                     <div className='w-full h-full flex justify-center items-center'>
-                        <div className='px-3 py-5 rounded-md border border-gray-300 bg-gray-50 w-full md:w-[350px]'>
+                        <div className='px-3 py-5 rounded-md border border-gray-300 bg-gray-50 w-11/12 md:w-[350px]'>
                             <form onSubmit={editReviewHandler}>
                                 <h3 className='text-center text-2xl border-b border-gray-200 pb-2'>Edit Reviews</h3>
                                 <div className='my-3'>

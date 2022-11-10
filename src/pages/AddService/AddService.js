@@ -56,13 +56,13 @@ const AddService = () => {
     }
 
     return (
-        <div className='container mx-auto py-10'>
+        <div className='container mx-auto py-10 px-5'>
             <div>
                 <h1 className='text-3xl text-center border-b border-gray-200 pb-5'>Add Services</h1>
                 <div>
                     <div className='w-full md:w-10/12 lg:w-9/12 mx-auto shadow-lg px-3 py-5 border border-gray-100 rounded-md mt-10'>
                         <form onSubmit={serviceAddHandler}>
-                            <div className='flex gap-4 mt-5'>
+                            <div className='flex flex-col sm:flex-row gap-4 mt-5'>
                                 <div className='flex-1'>
                                     <label className='inline-block cursor-pointer mb-2 text-lg' htmlFor='title'>Service Title</label>
                                     <input className='border border-gray-200 w-full rounded-md py-2 px-3 focus:outline-violet-500' type='text' placeholder='Enter Service Title' name='title' id='title' required />
