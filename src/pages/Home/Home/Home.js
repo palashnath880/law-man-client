@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import ServicesArea from '../ServicesArea/ServicesArea';
 import { Helmet } from 'react-helmet';
-import AboutUs from '../AboutUs/AboutUs';
+import BestServices from '../BestServices/BestServices';
 
 const Home = () => {
     return (
@@ -12,7 +12,7 @@ const Home = () => {
             </Helmet>
             <Banner />
             <ServicesArea />
-            <AboutUs />
+            <BestServices />
         </>
     );
 }
