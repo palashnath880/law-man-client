@@ -50,28 +50,9 @@ const Header = () => {
                                     </li>
                                 </>
                             }
-                            {user === null ?
+                            {user === null &&
                                 <li className='hidden md:block'>
                                     <NavLink className='block text-center py-2 px-3 transition-all border-b border-transparent hover:border-violet-500' to='/login'>Login</NavLink>
-                                </li> :
-                                <>
-                                    <div className='relative ml-4 hidden md:block'>
-                                        <div ref={profile}>
-                                            <label onClick={() => setProfileMenu(!profileMenu)} className='w-10 h-10 block rounded-full overflow-hidden focus:border-violet-500 cursor-pointer'><img src={user?.photoURL} alt='Profile Thumbnail' /></label>
-                                        </div>
-                                        <div className={`absolute z-50 top-full duration-200 right-0 bg-zinc-100 px-2 py-2 w-48 rounded-xl ${profileMenu ? 'visible opacity-100' : 'invisible opacity-0'}`}>
-                                            <ul>
-                                                <li>
-                                                    <button onClick={logoutHandler} className='w-full text-start py-2 px-2 duration-300 b hover:bg-slate-50 rounded-lg' >Logout</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </>
-                            }
-                            {
-                                user !== null && <li className='block md:hidden'>
-                                    <button onClick={logoutHandler} className='w-full text-center py-2 px-2 duration-300 b hover:bg-slate-50 rounded-lg' >Logout</button>
                                 </li>
                             }
 
@@ -79,16 +60,16 @@ const Header = () => {
                     </div>
                     {
                         user !== null ?
-                            <div className='relative ml-4 block md:hidden' >
+                            <div className='relative ml-4' >
                                 <div ref={profile}>
                                     <label onClick={() => setProfileMenu(!profileMenu)} className='w-10 h-10 block rounded-full overflow-hidden focus:border-violet-500 cursor-pointer'><img src={user?.photoURL} alt='Profile Thumbnail' /></label>
                                 </div>
                                 <div className={`absolute z-50 top-full duration-200 right-0 bg-zinc-100 px-2 py-2 w-48 rounded-xl ${profileMenu ? 'visible opacity-100' : 'invisible opacity-0'}`}>
                                     <ul>
-                                        <li>
+                                        <li className='block md:hidden'>
                                             <NavLink className='block text-start py-2 px-2 transition-all border-b border-transparent hover:border-violet-500' to='/my-services'>My Services</NavLink>
                                         </li>
-                                        <li>
+                                        <li className='block md:hidden'>
                                             <NavLink className='block text-start py-2 px-2 transition-all border-b border-transparent hover:border-violet-500' to='/my-reviews'>My Reviews</NavLink>
                                         </li>
                                         <li>
